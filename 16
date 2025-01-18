@@ -1,0 +1,19 @@
+.text
+.globl main
+
+main:
+    li $a0, 5           # Coloque o número cujo fatorial você deseja calcular em $a0
+    li $v0, 1           # Inicialize $v0 com 1 (resultado inicial)
+    jal fact            # Chame a função fact 
+    move $a0, $v0	# $a0 recebe o resultado da função
+    li $v0, 10          # Encerre o programa
+    syscall             # Retorne ao endereço de retorno
+
+fact:
+    beqz $a0, base      # Se $a0 for igual a zero, vá para o caso base
+    mul  $v0, $v0, $a0  # $v0 recebe $v0 * $a0
+    subi $a0, $a0, 1    # Decrementar $a0
+    j fact              # Chame fact recursivamente
+
+base:
+    jr $ra

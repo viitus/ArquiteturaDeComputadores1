@@ -1,0 +1,33 @@
+.data                 # termina com: 
+joao: .word 13       # joao = 40
+jose: .word 30       # jose = 39
+dias: .word 0        # dias = 9
+
+.text
+.globl main
+main:
+	lw   $s0, joao
+	lw   $s1, jose
+	lw   $s2, dias	
+
+Loop:
+	slt $t0, $s0, $s1        # if (joao < jose) continua 
+	beq $t0, $zero, Exit     # else pula para Exit
+	
+	addi $s0, $s0, 3        # joao++
+	addi $s1, $s1, 1        # jose += 3
+	
+	slti $t1, $s2, 10       # if (dias < 10){ 
+	beq $t1, 1, Dias        # pula para Dias 
+	beq $t1, $zero, Exit    # else pula para Exit 
+	
+	j Loop
+Exit:
+	li  $v0, 10         
+	syscall
+	
+Dias:
+	addi $s2, $s2, 1     # dias++
+	j Loop
+	
+	

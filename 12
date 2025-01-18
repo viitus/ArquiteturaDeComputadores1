@@ -1,0 +1,32 @@
+.data
+vetor: .word 1, 2, 3, 4, 5, 6
+
+.text
+.globl main
+
+main:
+    la $a0, vetor      # Endereço do vetor
+    # Configurar o índice do início e do final
+    li $t1, 0           # indice de início do vetor
+    li $t2, 20          # indice de final do vetor
+
+loop:
+    # Verifique se os índices se cruzaram
+    bge $t1, $t2, fim
+    # Atualiza os endereços dos indices
+    add $t5, $a0, $t1 		# endereço do inicio
+    add $t6, $a0, $t2		# endereço do final
+    # Carrega os elementos do vetor
+    lw $t3, 0($t5)      
+    lw $t4, 0($t6)      
+    # Troca os elementos
+    sw $t4, 0($t5)       
+    sw $t3, 0($t6)       
+    # Atualiza os índices
+    addi $t1, $t1, 4  	
+    subi $t2, $t2, 4
+    j loop
+    
+fim:
+    li $v0, 10
+    syscall

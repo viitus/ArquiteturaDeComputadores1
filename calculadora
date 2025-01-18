@@ -1,0 +1,45 @@
+.data
+num1: .float 1.1
+num2: .float 2.2
+num3: .double 3.3
+num4: .double 4.4
+result1: .float 0.0
+result2: .float 0.0
+result3: .float 0.0
+result4: .float 0.0
+result5: .double 0.0
+result6: .double 0.0
+result7: .double 0.0
+result8: .double 0.0
+.text
+main:
+# carrega float nos impares
+l.s $f1, num1
+l.s $f3, num2
+# carrega double nos pares
+l.d $f12, num3
+l.d $f14, num4
+# Adição
+add.s $f5, $f1, $f3
+add.d $f16, $f12, $f14
+# subtração
+sub.s $f7, $f1, $f3
+sub.d $f18, $f12, $f14
+# multiplicação
+mul.s $f9, $f1, $f3
+mul.d $f20, $f12, $f14
+# divisão
+div.s $f11, $f1, $f3
+div.d $f22, $f12, $f14
+# guarda resultados na memoria
+swc1 $f5,  result1
+swc1 $f7,  result2
+swc1 $f9,  result3
+swc1 $f11, result4
+swc1 $f16, result5
+swc1 $f18, result6
+swc1 $f20, result7
+swc1 $f22, result8
+# fim
+li $v0, 10
+syscall
